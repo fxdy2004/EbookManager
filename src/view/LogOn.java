@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,17 +35,6 @@ public class LogOn extends JFrame{
                 setState(Frame.ICONIFIED);  // 最小化窗口
             }
         });
-        JButton maxButton = new MyButton("🔲");
-        maxButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (getExtendedState() != Frame.MAXIMIZED_BOTH) {
-                    setExtendedState(Frame.MAXIMIZED_BOTH);  // 最大化窗口
-                } else {
-                    setExtendedState(Frame.NORMAL);  // 恢复窗口原始大小
-                }
-            }
-        });
         JButton closeButton = new MyButton("❌");
         closeButton.addActionListener(new ActionListener() {
             @Override
@@ -57,9 +48,12 @@ public class LogOn extends JFrame{
         JPanel winTool = new MyJPanel();
         winTool.setLayout(new FlowLayout(FlowLayout.RIGHT));
         winTool.add(minButton);
-        winTool.add(maxButton);
         winTool.add(closeButton);
         toolbar.add(winTool, BorderLayout.EAST);
+        JLabel titleLabel = new JLabel("Ebook");
+        titleLabel.setFont(titleLabel.getFont().deriveFont(20f));
+        toolbar.add(titleLabel, BorderLayout.CENTER);
+        toolbar.add(Box.createRigidArea(new Dimension(50,50)),BorderLayout.WEST);
         toolbar.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 mouseDownCompCoords = e.getPoint();
@@ -84,7 +78,7 @@ public class LogOn extends JFrame{
         passwordField.setHorizontalAlignment(JPasswordField.CENTER);
         passwordField.addFocusListener(new JPasswordFieldHinlistener(passwordField, "密码"));
         
-        JPanel buttonPanel = new JPanel();
+        JPanel buttonPanel = new MyJPanel();
         JButton logOnButton = new MyButton("登录");
         JButton registerButton = new MyButton("注册");
         JButton forgetButton = new MyButton("忘记密码");
@@ -93,12 +87,16 @@ public class LogOn extends JFrame{
         buttonPanel.add(forgetButton);
         
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-        mainPanel.add(idField,BorderLayout.NORTH);
-        mainPanel.add(passwordField,BorderLayout.SOUTH);
+        mainPanel.setLayout(new GridLayout(5,1));
+        mainPanel.add(Box.createHorizontalGlue());
+        mainPanel.add(idField);
+        mainPanel.add(Box.createHorizontalGlue());
+        mainPanel.add(passwordField);
         
         add(mainPanel,BorderLayout.CENTER);
         add(buttonPanel,BorderLayout.SOUTH);
+        add(Box.createRigidArea(new Dimension(50,500)),BorderLayout.WEST);
+        add(Box.createRigidArea(new Dimension(50,500)),BorderLayout.EAST);
         
         setVisible(true);
 	}
