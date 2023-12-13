@@ -29,6 +29,7 @@ public class DBUtil {
 		Connection connection = null;
 		try {
 			connection=DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			System.out.println("数据库连接成功");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("数据库连接失败");

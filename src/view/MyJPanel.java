@@ -1,0 +1,12 @@
+package view;
+
+import java.awt.Color;
+
+import javax.swing.JPanel;
+
+public class MyJPanel extends JPanel {
+    public MyJPanel() {
+        super();
+        setBackground(Color.PINK);
+    }
+}
