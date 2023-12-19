@@ -66,7 +66,7 @@ public class BookCover extends JPanel{
 		});
     }
 
-    private ImageIcon resizeImage(ImageIcon imageIcon) {
+    public static ImageIcon resizeImage(ImageIcon imageIcon) {
         Image image = imageIcon.getImage();
         int width = 100; // 调整为合适的宽度
         int height = 150; // 调整为合适的高度
