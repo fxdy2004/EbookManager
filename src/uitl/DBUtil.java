@@ -8,10 +8,10 @@ import java.sql.SQLException;
 
 public class DBUtil {
 	//数据库的链接信息
-	private static final String URL="jdbc:sqlserver://localhost:1433;DatabaseName=db_Ebook;encrypt=true;trustServerCertificate=true";
-	private static final String USERNAME="sa";
-	private static final String PASSWORD="Password1234567890";
-	private static final String DRIVER="com.microsoft.sqlserver.jdbc.SQLServerDriver";
+	private static final String URL="jdbc:mysql://127.0.0.1:3306/E_books?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+	private static final String USERNAME="root";
+	private static final String PASSWORD="123456";
+	private static final String DRIVER="com.mysql.cj.jdbc.Driver";
 	//按理来说,这些东西都应该写在配置文件里的, properties, 有时间再改呗
 	
 	private DBUtil(){};
@@ -20,6 +20,7 @@ public class DBUtil {
 	static {
 		try {
 			Class.forName(DRIVER);
+			System.out.print("数据库,");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -29,7 +30,7 @@ public class DBUtil {
 		Connection connection = null;
 		try {
 			connection=DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			System.out.println("数据库连接成功");
+			System.out.println("启动!");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("数据库连接失败");

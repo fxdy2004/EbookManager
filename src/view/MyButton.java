@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -14,6 +15,7 @@ public class MyButton extends JButton {
         setForeground(Color.WHITE);
         setBackground(Color.PINK);
         setFont(getFont().deriveFont(20f));
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         addMouseListener(new MouseListener() {
 
             @Override

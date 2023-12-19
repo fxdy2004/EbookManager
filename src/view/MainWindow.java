@@ -8,29 +8,31 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
+import java.io.File;
 
 public class MainWindow extends JFrame {
     private static Point mouseDownCompCoords = null;
-
+    private static String DownloadAddress = "C:\\";
+    private static JPanel content;
     public MainWindow() {
-        setTitle("侧边栏示例");
+        setTitle("侧边栏");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 500);
         setLocationRelativeTo(null);
         setUndecorated(true);
 
         JPanel sidebar = new MyJPanel();
-        sidebar.setPreferredSize(new Dimension(100, 500));
+        sidebar.setPreferredSize(new Dimension(50, 500));
+        
+        JButton button1 = new MyButton("🏠");
 
-        JButton button1 = new MyButton("首页");
+        JButton button2 = new MyButton("🔍");
 
-        JButton button2 = new MyButton("搜索");
+        JButton button3 = new MyButton("🔼");
 
-        JButton button3 = new MyButton("我的上传");
+        JButton button4 = new MyButton("⏬");
 
-        JButton button4 = new MyButton("我的下载");
-
-        JButton button5 = new MyButton("切换账号");
+        JButton button5 = new MyButton("🔁");
 
         JButton minButton = new MyButton("➖");
         minButton.addActionListener(new ActionListener() {
@@ -58,7 +60,7 @@ public class MainWindow extends JFrame {
             }
         });
 
-        JButton setButton = new MyButton("设置");
+        JButton setButton = new MyButton("⚙️");
 
         sidebar.add(button1);
         sidebar.add(button2);
@@ -67,18 +69,83 @@ public class MainWindow extends JFrame {
         sidebar.add(button5);
 
 
-        JPanel content = new JPanel();
-        content.add(new JLabel("这是主要内容区域"));
-
-        JButton toggleButton = new MyButton("🔙");
+        content = new JPanel();
+        content.setLayout(new FlowLayout());
+        JPanel homepage = new HomePage();
+        JPanel search = new Search();
+        JPanel setface = new SetFace();
+        content.add(homepage);
+        
+        button1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				replacePage(homepage);
+			}
+		});
+        button2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				replacePage(search);
+			}
+		});
+        button3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				fileChooser.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (e.getActionCommand().equals(JFileChooser.APPROVE_SELECTION)) {
+				            File selectedFile = fileChooser.getSelectedFile();
+				            // 处理选择的文件
+				            System.out.println("用户选中了一个文件");
+				        }
+					}
+				});
+				replacePage(fileChooser);
+			}
+		});
+        button4.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser(new File(DownloadAddress));
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				fileChooser.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (e.getActionCommand().equals(JFileChooser.APPROVE_SELECTION)) {
+				            File selectedFile = fileChooser.getSelectedFile();
+				            // 处理选择的文件
+				            System.out.println("用户选中了一个文件");
+				        }
+					}
+				});
+				replacePage(fileChooser);
+			}
+		});
+        button5.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JDialog dialog = new LogOnDialog(MainWindow.this,"重新登录",true);
+			}
+		});
+        setButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				replacePage(setface);
+			}
+		});
+        
+        JButton toggleButton = new MyButton("🔜");
         toggleButton.setToolTipText("点击展开侧边栏");
         toggleButton.addActionListener(new ActionListener() {
-            boolean isSidebarShown = true;
+            private static boolean isSidebarShown = false;
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (isSidebarShown) {
-                    sidebar.setPreferredSize(new Dimension(50, 300));
+                    sidebar.setPreferredSize(new Dimension(50, 500));
                     toggleButton.setText("🔜");
                     button1.setText("🏠");
                     button2.setText("🔍");
@@ -90,7 +157,7 @@ public class MainWindow extends JFrame {
                     isSidebarShown = false;
                 } else {
                     remove(sidebar);
-                    sidebar.setPreferredSize(new Dimension(100, 300));
+                    sidebar.setPreferredSize(new Dimension(100, 500));
                     toggleButton.setText("🔙");
                     button1.setText("首页");
                     button2.setText("搜索");
@@ -152,7 +219,12 @@ public class MainWindow extends JFrame {
         });
     }
 
-    
+    public static void replacePage(Component comp) {
+    	content.removeAll();;
+		content.add(comp);
+		content.revalidate();
+		content.repaint();
+    }
 
     
 }

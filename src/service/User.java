@@ -5,9 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public abstract class User {
-//	private static int nextId=0;//这里应该调用数据库获得用户总数
-	private static final AtomicInteger nextId=new AtomicInteger();//同上
+public class User {
 //	UUID。。。对不起，做不到
 	private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 //	用于统一日期格式
@@ -21,9 +19,7 @@ public abstract class User {
 	private LocalDateTime registerTime;
 	
 	public User() {
-		this.userId=nextId.getAndIncrement();
-		registerTime=LocalDateTime.now();
-		this.userName="User_"+Integer.toString(userId);
+		this.registerTime=LocalDateTime.now();
 	}
 	public String getRole() {
 		return role;
@@ -68,5 +64,7 @@ public abstract class User {
 		this.role = role;
 	}
 	@Override
-    public abstract String toString();
+    public String toString() {
+		return "";
+	}
 }
