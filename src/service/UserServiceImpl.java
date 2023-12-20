@@ -9,11 +9,23 @@ public class UserServiceImpl implements UserService {
 	UserDao userDao = new UserDaoImpl();
 	
 	@Override
-	public boolean login(User user) throws SQLException {
-		if(userDao.loginName(user)||userDao.loginEmail(user)||userDao.loginPhone(user)) {
-			return true;
+	public User login(User user) throws SQLException {
+		User user1 = userDao.loginName(user);
+		User user2 = userDao.loginEmail(user);
+		User user3 = userDao.loginPhone(user);
+		if(user1==null) {
+			if(user2==null) {
+				if(user3==null) {
+					return null;
+				}
+				else {
+					return user3;
+				}
+			}else {
+				return user2;
+			}
 		}else {
-			return false;
+			return user1;
 		}
 	}
 

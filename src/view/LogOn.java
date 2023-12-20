@@ -126,7 +126,7 @@ public class LogOn extends JFrame{
 					try {
 						if(userService.logon(user)==true) {
 							dispose();
-							new MainWindow();
+							new MainWindow(user);
 						}
 					}catch (Exception e1) {
 						System.out.println("注册出错");

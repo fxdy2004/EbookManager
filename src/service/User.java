@@ -45,6 +45,9 @@ public class User {
 	public LocalDateTime getRegisterTime() {
 		return registerTime;
 	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
@@ -63,8 +66,11 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	public void setRegisterTime(LocalDateTime registerTime) {
+		this.registerTime = registerTime;
+	}
 	@Override
     public String toString() {
-		return "";
+		return getUserName()+getUserId();
 	}
 }

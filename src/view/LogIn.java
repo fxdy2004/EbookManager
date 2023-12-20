@@ -92,9 +92,10 @@ public class LogIn extends JFrame{
 				user.setUserName(string);
 				user.setPassword(password);
 				try {
-					if(userService.login(user)==true) {
+					User masterUser =  userService.login(user);
+					if(masterUser!=null) {
 						dispose();
-						new MainWindow();
+						new MainWindow(masterUser);
 					}else {
 						JDialog dialog = new JDialog(LogIn.this, "登录失败", true);
 						dialog.setLayout(new BorderLayout());

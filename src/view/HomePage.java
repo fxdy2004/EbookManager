@@ -25,14 +25,20 @@ public class HomePage extends JPanel{
 		setPreferredSize(new Dimension(600, 500));
 		JPanel center = new JPanel();
 		center.setLayout(new FlowLayout(FlowLayout.LEFT,75,25));
+		
+		
 		EBook testBook = new EBook("测试book", "俺", BookType.GAME);
 		testBook.setCoverImageIcon(new ImageIcon("images/1.jpg"));
+		
+		
 		center.add(new BookCover(testBook));
-//		center.add(new BookCover(new ImageIcon("images/2.jpg"), "测试"));
-//		center.add(new BookCover(new ImageIcon("images/3.jpg"), "测试"));
-//		center.add(new BookCover(new ImageIcon("images/4.jpg"), "测试"));
-//		center.add(new BookCover(new ImageIcon("images/5.jpg"), "测试"));
-//		center.add(new BookCover(new ImageIcon("images/6.jpg"), "测试"));
+		center.add(new BookCover(testBook));
+		center.add(new BookCover(testBook));
+		center.add(new BookCover(testBook));
+		center.add(new BookCover(testBook));
+		center.add(new BookCover(testBook));
+		center.add(new BookCover(testBook));
+
 		add(center,BorderLayout.CENTER);
 	}
 }

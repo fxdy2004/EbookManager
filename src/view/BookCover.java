@@ -15,6 +15,7 @@ import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 
 import service.EBook;
+import uitl.ImageUtil;
 
 public class BookCover extends JPanel{
 	private ImageIcon bookCover;
@@ -25,8 +26,7 @@ public class BookCover extends JPanel{
         this.bookName = book.getBookName();
 
         setPreferredSize(new Dimension(100, 150)); // 设置尺寸
-
-        JLabel coverLabel = new JLabel(resizeImage(bookCover)); // 创建包含调整大小后的封面图像的标签
+        JLabel coverLabel = new JLabel(ImageUtil.resizeImage(bookCover, 100, 150)); // 创建包含调整大小后的封面图像的标签
         JLabel titleLabel = new JLabel(bookName); // 创建显示书名的标签
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER); // 设置标题居中对齐
 
@@ -61,16 +61,8 @@ public class BookCover extends JPanel{
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MainWindow.replacePage(new Details(book));
+				MainWindow.replacePage(new Details(book,false));
 			}
 		});
-    }
-
-    public static ImageIcon resizeImage(ImageIcon imageIcon) {
-        Image image = imageIcon.getImage();
-        int width = 100; // 调整为合适的宽度
-        int height = 150; // 调整为合适的高度
-        Image resizedImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        return new ImageIcon(resizedImage);
     }
 }

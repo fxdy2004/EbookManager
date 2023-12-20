@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import service.EBook;
 import uitl.DBUtil;
 
@@ -73,7 +75,7 @@ public class EBookDaoImpl implements EBookDao {
 			eBook.setDescription(resultSet.getString("description"));
 			eBook.setSubmissionUserId(resultSet.getInt("submission_user_id"));
 			eBook.setSubmissionDate(resultSet.getObject("submission_time", LocalDateTime.class));
-			eBook.setCoverImageUrl(resultSet.getString("cover_image_url"));
+			eBook.setCoverImageIcon(new ImageIcon(resultSet.getString("cover_image_url")));
 			eBook.setFilePath(resultSet.getString("file_path"));
 			list.add(eBook);
 		}
@@ -94,7 +96,7 @@ public class EBookDaoImpl implements EBookDao {
 		eBook.setDescription(resultSet.getString("description"));
 		eBook.setSubmissionUserId(resultSet.getInt("submission_user_id"));
 		eBook.setSubmissionDate(resultSet.getObject("submission_time", LocalDateTime.class));
-		eBook.setCoverImageUrl(resultSet.getString("cover_image_url"));
+		eBook.setCoverImageIcon(new ImageIcon(resultSet.getString("cover_image_url")));
 		eBook.setFilePath(resultSet.getString("file_path"));
 		return eBook;
 	}
@@ -116,7 +118,7 @@ public class EBookDaoImpl implements EBookDao {
 			eBook.setDescription(resultSet.getString("description"));
 			eBook.setSubmissionUserId(resultSet.getInt("submission_user_id"));
 			eBook.setSubmissionDate(resultSet.getObject("submission_time", LocalDateTime.class));
-			eBook.setCoverImageUrl(resultSet.getString("cover_image_url"));
+			eBook.setCoverImageIcon(new ImageIcon(resultSet.getString("cover_image_url")));
 			eBook.setFilePath(resultSet.getString("file_path"));
 			list.add(eBook);
 		}
@@ -138,7 +140,7 @@ public class EBookDaoImpl implements EBookDao {
 			eBook.setDescription(resultSet.getString("description"));
 			eBook.setSubmissionUserId(resultSet.getInt("submission_user_id"));
 			eBook.setSubmissionDate(resultSet.getObject("submission_time", LocalDateTime.class));
-			eBook.setCoverImageUrl(resultSet.getString("cover_image_url"));
+			eBook.setCoverImageIcon(new ImageIcon(resultSet.getString("cover_image_url")));
 			eBook.setFilePath(resultSet.getString("file_path"));
 			list.add(eBook);
 		}

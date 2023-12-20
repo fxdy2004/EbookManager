@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.ImageIcon;
 
 public class EBook {
-    private int bookId;
+    private int bookId = 0;
     private String bookName;
     private String author;
     private LocalDate publicationDate;
@@ -17,7 +17,7 @@ public class EBook {
     private String isbn;
     private BookType type;
     private String description;
-    private int submissionUserId;
+    private int submissionUserId = 0;
     private LocalDateTime submissionDate;
     private ImageIcon coverImageIcon;
     private Path filePath;
@@ -55,39 +55,61 @@ public class EBook {
         }
     }
     public int getBookId() {
+    	if(bookId==0)
+    		return 0;
 		return bookId;
 	}
     public String getBookName() {
+    		if(bookName==null)
+    			return "unknow";
 		return bookName;
 	}
     public String getAuthor() {
-		return author;
+    	if(author==null)
+			return "unknow";
+    	return author;
 	}
     public String getPress() {
+    	if(press==null)
+    		return "unknow";
 		return press;
 	}
-    public LocalDate getPublicationDate() {
-		return publicationDate;
+    public String getPublicationDate() {
+    	if(publicationDate==null)
+    		return "unknow";
+		return publicationDate.toString();
 	}
     public String getIsbn() {
+    	if(isbn==null)
+    		return "unknow";
 		return isbn;
 	}
     public BookType getType() {
 		return type;
 	}
     public String getDescription() {
+    	if(isbn==null)
+    		return "unknow";
 		return description;
 	}
     public int getSubmissionUserId() {
+    	if(submissionUserId==0)
+    		return 0;
 		return submissionUserId;
 	}
-    public LocalDateTime getSubmissionDate() {
-		return submissionDate;
+    public String getSubmissionDate() {
+    	if(submissionDate==null)
+    		return "unknow";
+		return submissionDate.toString();
 	}
     public ImageIcon getCoverImageIcon() {
+    	if(coverImageIcon==null)
+    		return new ImageIcon("images/1.jpg");
 		return coverImageIcon;
 	}
     public Path getFilePath() {
+    	if(filePath==null)
+    		return Paths.get("images/1.jpg");
 		return filePath;
 	}
     public void setBookId(int bookId) {

@@ -8,9 +8,9 @@ public interface UserDao {
 	/**
 	 * 查询数据库并返回bool值
 	 */
-	public boolean loginName(User user) throws SQLException;
-	public boolean loginEmail(User user) throws SQLException;
-	public boolean loginPhone(User user) throws SQLException;
+	public User loginName(User user) throws SQLException;
+	public User loginEmail(User user) throws SQLException;
+	public User loginPhone(User user) throws SQLException;
 	/**
 	 * 将新账号加入数据库
 	 */

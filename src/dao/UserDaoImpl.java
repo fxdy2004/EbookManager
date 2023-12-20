@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import service.User;
 import uitl.DBUtil;
@@ -18,7 +20,6 @@ public class UserDaoImpl implements UserDao {
 	private final static String findEmail = "select * from tb_user_table where email = ?";
 	private final static String findPhone = "select * from tb_user_table where phone = ?";
 	
-	
 	static Connection conn = null;
 	static PreparedStatement statement = null;
 	
@@ -27,41 +28,98 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	@Override
-	public boolean loginName(User user) throws SQLException {
+	public User loginName(User user) throws SQLException {
 		statement = conn.prepareStatement(loginName);
 		statement.setString(1, user.getUserName());
 		statement.setString(2, user.getPassword());
 		ResultSet resultSet = statement.executeQuery();
 		if(resultSet.next()) {
-			return true;
+			int type = resultSet.getInt("category_id");
+			switch (type) {
+			case 1:
+				user.setRole("管理员");
+				break;
+			case 2:
+				user.setRole("普通用户");
+				break;
+			case 3:
+				user.setRole("VIP用户");
+			default:
+				throw new SQLException("表中数据异常");
+			}
+			user.setBirthday(resultSet.getObject("birthdate", LocalDate.class));
+			user.setEmail(resultSet.getString("email"));
+			user.setPhone(resultSet.getString("phone"));
+			user.setUserId(resultSet.getInt("user_id"));
+			user.setUserName(resultSet.getString("username"));
+			user.setRegisterTime(resultSet.getObject("register_time", LocalDateTime.class));
+			return user;
 		}else {
-			return false;
+			return null;
 		}
 	}
 	
 	@Override
-	public boolean loginEmail(User user) throws SQLException {
+	public User loginEmail(User user) throws SQLException {
 		statement = conn.prepareStatement(loginEmail);
 		statement.setString(1, user.getUserName());
 		statement.setString(2, user.getPassword());
 		ResultSet resultSet = statement.executeQuery();
 		if(resultSet.next()) {
-			return true;
+			int type = resultSet.getInt("category_id");
+			switch (type) {
+			case 1:
+				user.setRole("管理员");
+				break;
+			case 2:
+				user.setRole("普通用户");
+				break;
+			case 3:
+				user.setRole("VIP用户");
+			default:
+				throw new SQLException("表中数据异常");
+			}
+			user.setBirthday(resultSet.getObject("birthdate", LocalDate.class));
+			user.setEmail(resultSet.getString("email"));
+			user.setPhone(resultSet.getString("phone"));
+			user.setUserId(resultSet.getInt("user_id"));
+			user.setUserName(resultSet.getString("username"));
+			user.setRegisterTime(resultSet.getObject("register_time", LocalDateTime.class));
+			return user;
 		}else {
-			return false;
+			return null;
 		}
 	}
 
 	@Override
-	public boolean loginPhone(User user) throws SQLException {
+	public User loginPhone(User user) throws SQLException {
 		statement = conn.prepareStatement(loginPhone);
 		statement.setString(1, user.getUserName());
 		statement.setString(2, user.getPassword());
 		ResultSet resultSet = statement.executeQuery();
 		if(resultSet.next()) {
-			return true;
+			int type = resultSet.getInt("category_id");
+			switch (type) {
+			case 1:
+				user.setRole("管理员");
+				break;
+			case 2:
+				user.setRole("普通用户");
+				break;
+			case 3:
+				user.setRole("VIP用户");
+			default:
+				throw new SQLException("表中数据异常");
+			}
+			user.setBirthday(resultSet.getObject("birthdate", LocalDate.class));
+			user.setEmail(resultSet.getString("email"));
+			user.setPhone(resultSet.getString("phone"));
+			user.setUserId(resultSet.getInt("user_id"));
+			user.setUserName(resultSet.getString("username"));
+			user.setRegisterTime(resultSet.getObject("register_time", LocalDateTime.class));
+			return user;
 		}else {
-			return false;
+			return null;
 		}
 	}
 

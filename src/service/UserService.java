@@ -6,7 +6,7 @@ public interface UserService {
 	/**
 	 * 登录
 	 */
-	public boolean login(User user) throws SQLException;
+	public User login(User user) throws SQLException;
 	/**
 	 * 注册
 	 */

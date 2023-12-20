@@ -1,6 +1,10 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+import service.User;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +18,7 @@ public class MainWindow extends JFrame {
     private static Point mouseDownCompCoords = null;
     private static String DownloadAddress = "C:\\";
     private static JPanel content;
-    public MainWindow() {
+    public MainWindow(User user) {
         setTitle("侧边栏");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 500);
@@ -98,8 +102,7 @@ public class MainWindow extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						if (e.getActionCommand().equals(JFileChooser.APPROVE_SELECTION)) {
 				            File selectedFile = fileChooser.getSelectedFile();
-				            // 处理选择的文件
-				            System.out.println("用户选中了一个文件");
+				            new BookTypeSelection(selectedFile, MainWindow.this, "选择图书类别", true);
 				        }
 					}
 				});
@@ -139,6 +142,7 @@ public class MainWindow extends JFrame {
         
         JButton toggleButton = new MyButton("🔜");
         toggleButton.setToolTipText("点击展开侧边栏");
+        toggleButton.setBorder(new EmptyBorder(0, 14, 0, 14));
         toggleButton.addActionListener(new ActionListener() {
             private static boolean isSidebarShown = false;
 
@@ -158,10 +162,10 @@ public class MainWindow extends JFrame {
                 } else {
                     remove(sidebar);
                     sidebar.setPreferredSize(new Dimension(100, 500));
-                    toggleButton.setText("🔙");
+                    toggleButton.setText("收起边栏");
                     button1.setText("首页");
                     button2.setText("搜索");
-                    button3.setText("我的上传");
+                    button3.setText("上传图书");
                     button4.setText("我的下载");
                     button5.setText("切换账号");
                     setButton.setText("设置");
@@ -214,7 +218,7 @@ public class MainWindow extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new MainWindow();
+                new MainWindow(null);
             }
         });
     }
