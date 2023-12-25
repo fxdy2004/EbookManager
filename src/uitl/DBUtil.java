@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class DBUtil {
 	//数据库的链接信息
-	private static final String URL="jdbc:mysql://127.0.0.1:3306/E_books?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+	private static final String URL="jdbc:mysql://127.0.0.1:3306/e_books?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
 	private static final String USERNAME="root";
 	private static final String PASSWORD="123456";
 	private static final String DRIVER="com.mysql.cj.jdbc.Driver";

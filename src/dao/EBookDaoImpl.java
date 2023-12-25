@@ -17,7 +17,7 @@ import uitl.DBUtil;
 
 public class EBookDaoImpl implements EBookDao {
 	private final static String selectAll = "SELECT * FROM EBook";
-	private final static String add = "INSERT INTO tb_book_table(bookname,author,type_id)value(?,?,?)";
+    private final static String add = "insert into tb_book_table(bookname, author, publication_date, press, ISBN, type_id, description, submission_user_id, cover_image_url, file_path, submission_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private final static String update = "update tb_book_table set ISBN=? where book_id=?";
 	private final static String delete = "delete from tb_book_table where book_id=?";
 	private final static String blurryName = "select * from tb_book_table where bookname like ?";
@@ -36,7 +36,15 @@ public class EBookDaoImpl implements EBookDao {
 		statement = conn.prepareStatement(add);
 		statement.setString(1, book.getBookName());
 		statement.setString(2, book.getAuthor());
-		statement.setString(3, book.getType().getCode());
+		statement.setString(3, book.getPublicationDate());
+		statement.setString(4, book.getPress());
+		statement.setString(5, book.getIsbn());
+		statement.setString(6, book.getType().getCode());
+		statement.setString(7, book.getDescription());
+		statement.setInt(8, book.getSubmissionUserId());
+		statement.setString(9, book.getCoverImageIcon().toString());
+		statement.setString(10, book.getFilePath().toString());
+		statement.setString(11, book.getSubmissionDate().toString());
 		statement.executeUpdate();
 	}
 

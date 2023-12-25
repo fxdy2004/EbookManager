@@ -62,6 +62,8 @@ public class Search extends JPanel{
 				for(i=0;i<n;i++) {
 					center.add(new BookCover(books.get(i)));
 				}
+				center.revalidate();
+				center.repaint();
 			}
 		});
 	}

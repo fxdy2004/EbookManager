@@ -3,6 +3,7 @@ package view;
 import javax.swing.*;
 
 import service.EBook;
+import service.User;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -19,7 +20,7 @@ public class BookTypeSelection extends JDialog {
     private JComboBox<EBook.BookType> comboBox;
 
 
-    public BookTypeSelection(File file,JFrame parent, String title, boolean modal) {
+    public BookTypeSelection(User user,File file,JFrame parent, String title, boolean modal) {
     	super(parent, title, modal);
         setTitle("选择图书类别");
         setSize(300, 200);
@@ -34,7 +35,7 @@ public class BookTypeSelection extends JDialog {
                 if (selectedType != null) {
                     try {
                     	dispose();
-						new BookInformationAdd(file, selectedType, parent, title, modal);
+						new BookInformationAdd(user, file, selectedType, parent, title, modal);
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

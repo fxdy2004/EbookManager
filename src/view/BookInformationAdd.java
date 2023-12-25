@@ -22,12 +22,13 @@ import javax.swing.border.Border;
 
 import service.BookServiceImpl;
 import service.EBook;
+import service.User;
 import uitl.PDFUtil;
 
 public class BookInformationAdd extends JDialog{
 	private static Point mouseDownCompCoords = null;
 	EBook book;
-	public BookInformationAdd(File file,EBook.BookType bookType,JFrame parent, String title, boolean modal) throws Exception {
+	public BookInformationAdd(User user,File file,EBook.BookType bookType,JFrame parent, String title, boolean modal) throws Exception {
 		super(parent, title, modal);
 		setTitle("BookInformationAdd");
 		setSize(600, 500);
@@ -64,7 +65,7 @@ public class BookInformationAdd extends JDialog{
                 setLocation(currCoords.x - mouseDownCompCoords.x, currCoords.y - mouseDownCompCoords.y);
             }
         });
-        book = PDFUtil.PDFLoad(file, bookType);
+        book = PDFUtil.PDFLoad(file, bookType, user);
         add(toolbar,BorderLayout.NORTH);
         add(new Details(book, true),BorderLayout.CENTER);
         

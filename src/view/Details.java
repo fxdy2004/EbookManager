@@ -1,21 +1,15 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Label;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -63,25 +57,28 @@ public class Details extends JPanel{
         pressField.setEditable(flag);
         isbnField.setEditable(flag);
         
-        nameField.addFocusListener(new TextListener(book, nameField.getText(), 1));
-        authorField.addFocusListener(new TextListener(book, authorField.getText(), 2));
-        publicationField.addFocusListener(new TextListener(book, publicationField.getText(), 3));
-        pressField.addFocusListener(new TextListener(book, pressField.getText(), 4));
-        isbnField.addFocusListener(new TextListener(book, isbnField.getText(), 5));
+        nameField.addFocusListener(new TextListener(book, 1));
+        authorField.addFocusListener(new TextListener(book, 2));
+        publicationField.addFocusListener(new TextListener(book, 3));
+        pressField.addFocusListener(new TextListener(book, 4));
+        isbnField.addFocusListener(new TextListener(book, 5));
+        
+        DateChooser dateChooser = DateChooser.getInstance("yyyy-MM-dd");
+        dateChooser.register(publicationField);
         
         JPanel bookPropertiesPanel = new JPanel();  
         bookPropertiesPanel.setPreferredSize(new Dimension());
         bookPropertiesPanel.setLayout(new GridLayout(5, 2));
         bookPropertiesPanel.add(new MyLabel("名称"));
-        bookPropertiesPanel.add(new MyLabel(book.getBookName()));
+        bookPropertiesPanel.add(nameField);
         bookPropertiesPanel.add(new MyLabel("作者"));
-        bookPropertiesPanel.add(new MyLabel(book.getAuthor()));
+        bookPropertiesPanel.add(authorField);
         bookPropertiesPanel.add(new MyLabel("版次"));
-        bookPropertiesPanel.add(new MyLabel(book.getPublicationDate().toString()));
+        bookPropertiesPanel.add(publicationField);
         bookPropertiesPanel.add(new MyLabel("出版社"));
-        bookPropertiesPanel.add(new MyLabel(book.getPress()));
+        bookPropertiesPanel.add(pressField);
         bookPropertiesPanel.add(new MyLabel("ISBN"));
-        bookPropertiesPanel.add(new MyLabel(book.getIsbn()));
+        bookPropertiesPanel.add(isbnField);
         
         gbc.gridx = 1;  
         gbc.gridy = 0;  
@@ -93,7 +90,7 @@ public class Details extends JPanel{
           
         // 详情  
         JTextArea textArea= new JTextArea(book.getDescription());
-        textArea.addFocusListener(new TextListener(book, textArea.getText(), 6));
+        textArea.addFocusListener(new TextListener(book, 6));
         textArea.setFont(getFont().deriveFont(20f));
         textArea.setLineWrap(true);
         textArea.setEditable(flag);
@@ -108,7 +105,7 @@ public class Details extends JPanel{
         gbc.gridwidth = 2;  
         gbc.weighty = 0.3;  
         add(details, gbc);  
-          
+        
         // 提交人  
         JLabel submitterLabel = new JLabel("提交人id: "+book.getSubmissionUserId());
         submitterLabel.setPreferredSize(new Dimension());

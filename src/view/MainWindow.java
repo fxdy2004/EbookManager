@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import service.User;
+import uitl.ColorUitl;
+import uitl.FilePersistenceUtil;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,8 +18,13 @@ import java.io.File;
 
 public class MainWindow extends JFrame {
     private static Point mouseDownCompCoords = null;
-    private static String DownloadAddress = "C:\\";
     private static JPanel content;
+    
+    private static JPanel sidebar;
+    private static JPanel toolbar;
+    private static JPanel winTool;
+    private static JPanel setPanel;
+    
     public MainWindow(User user) {
         setTitle("侧边栏");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,7 +32,7 @@ public class MainWindow extends JFrame {
         setLocationRelativeTo(null);
         setUndecorated(true);
 
-        JPanel sidebar = new MyJPanel();
+        sidebar = new MyJPanel();
         sidebar.setPreferredSize(new Dimension(50, 500));
         
         JButton button1 = new MyButton("🏠");
@@ -102,7 +109,7 @@ public class MainWindow extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						if (e.getActionCommand().equals(JFileChooser.APPROVE_SELECTION)) {
 				            File selectedFile = fileChooser.getSelectedFile();
-				            new BookTypeSelection(selectedFile, MainWindow.this, "选择图书类别", true);
+				            new BookTypeSelection(user,selectedFile, MainWindow.this, "选择图书类别", true);
 				        }
 					}
 				});
@@ -112,7 +119,7 @@ public class MainWindow extends JFrame {
         button4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileChooser = new JFileChooser(new File(DownloadAddress));
+				JFileChooser fileChooser = new JFileChooser(new File(FilePersistenceUtil.getSavedFilePath()));
 				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				fileChooser.addActionListener(new ActionListener() {
 					@Override
@@ -137,6 +144,7 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				replacePage(setface);
+				
 			}
 		});
         
@@ -163,6 +171,7 @@ public class MainWindow extends JFrame {
                     remove(sidebar);
                     sidebar.setPreferredSize(new Dimension(100, 500));
                     toggleButton.setText("收起边栏");
+                    toggleButton.setToolTipText("点击收起侧边栏");
                     button1.setText("首页");
                     button2.setText("搜索");
                     button3.setText("上传图书");
@@ -176,10 +185,10 @@ public class MainWindow extends JFrame {
             }
         });
 
-        JPanel toolbar = new MyJPanel();
+        toolbar = new MyJPanel();
         toolbar.setLayout(new BorderLayout());
         toolbar.add(toggleButton, BorderLayout.WEST);
-        JPanel winTool = new MyJPanel();
+        winTool = new MyJPanel();
         winTool.setLayout(new FlowLayout(FlowLayout.RIGHT));
         winTool.add(minButton);
         winTool.add(maxButton);
@@ -202,7 +211,7 @@ public class MainWindow extends JFrame {
             }
         });
 
-        JPanel setPanel = new MyJPanel();
+        setPanel = new MyJPanel();
         setPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         setPanel.add(setButton);
 
@@ -218,7 +227,9 @@ public class MainWindow extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new MainWindow(null);
+            	User user = new User();
+            	user.setUserId(10001);
+                new MainWindow(user);
             }
         });
     }
@@ -229,6 +240,15 @@ public class MainWindow extends JFrame {
 		content.revalidate();
 		content.repaint();
     }
-
+    public static void repaintColor() {
+    	sidebar.setBackground(ColorUitl.getSavedColor());
+    	sidebar.repaint();
+        toolbar.setBackground(ColorUitl.getSavedColor());
+        toolbar.repaint();
+        winTool.setBackground(ColorUitl.getSavedColor());
+        winTool.repaint();
+        setPanel.setBackground(ColorUitl.getSavedColor());
+        setPanel.repaint();
+    }
     
 }
