@@ -24,7 +24,7 @@ public class BookTypeSelection extends JDialog {
     	super(parent, title, modal);
         setTitle("选择图书类别");
         setSize(300, 200);
-        
+        setLocationRelativeTo(null);;
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
         comboBox = new JComboBox<>(EBook.BookType.values());
